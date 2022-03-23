@@ -1,5 +1,5 @@
 // grab our client with destructuring from the export in index.js
-const { client, getAllUsers, createUser } = require("./index");
+const { client, getAllUsers, createUser, updateUser } = require("./index");
 
 // this function should attempt to create a few users
 async function createInitialUsers() {
@@ -11,7 +11,6 @@ async function createInitialUsers() {
       password: "bertie99",
       name: "Al Bert",
       location: "Sidney, Australia",
-      active: true,
     });
 
     const sandra = await createUser({
@@ -19,7 +18,6 @@ async function createInitialUsers() {
       password: "2sandy4me",
       name: "Just Sandra",
       location: "Ain't tellin'",
-      active: true,
     });
 
     const glamGal = await createUser({
@@ -27,11 +25,10 @@ async function createInitialUsers() {
       password: "soglam",
       name: "Joshua",
       location: "Upper East Side",
-      active: true,
     });
 
-    console.log(albert);
-    console.log(sandra);
+    //console.log(albert);
+    //console.log(sandra);
 
     console.log("Finished creating users!");
   } catch (error) {
@@ -89,10 +86,18 @@ async function testDB() {
     //client.connect();
 
     // queries are promises, so we can await them
+    console.log("Calling getAllUsers");
     const users = await getAllUsers();
 
     // for now, logging is a fine way to see what's up
-    console.log("getAllUsers:", users);
+    console.log("Result:", users);
+
+    console.log("Calling updateUser on users[0]");
+    const updateUserResult = await updateUser(users[0].id, {
+      name: "Newname Sogood",
+      location: "Lesterville, KY",
+    });
+    console.log("Result:", updateUserResult);
 
     console.log("Finished database tests!");
   } catch (error) {
