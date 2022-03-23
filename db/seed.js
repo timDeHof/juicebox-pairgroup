@@ -36,10 +36,28 @@ async function createInitialUsers() {
     throw error;
   }
 }
+// createInitialPosts()
+async function createInitialPosts() {
+  try {
+    const [albert, sandra, glamgal] = await getAllUsers();
+
+    await createPost({
+      authorId: albert.id,
+      title: "First Post",
+      content:
+        "This is my first post. I hope I love writing blogs as much as I love writing them.",
+    });
+
+    // a couple more
+  } catch (error) {
+    throw error;
+  }
+}
 
 // this function should call a query which drops all tables from our database
 async function dropTables() {
   try {
+    await client.query(`DROP TABLE IF EXISTS posts;`);
     await client.query(`DROP TABLE IF EXISTS users;`);
     console.log("Finished dropping tables!");
   } catch (error) {
@@ -61,6 +79,15 @@ async function createTables() {
             location VARCHAR(255) NOT NULL,
             active BOOLEAN DEFAULT true
             );`);
+
+    await client.query(`CREATE TABLE posts(
+        id SERIAL PRIMARY KEY,
+        "authorId" INTEGER REFERENCES users(id) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        context TEXT NOT NULL,
+        active BOOLEAN DEFAULT true
+    );`);
+
     console.log("Finished building tables!");
   } catch (error) {
     console.error("Error building tables!");
