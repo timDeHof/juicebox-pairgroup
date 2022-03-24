@@ -128,7 +128,7 @@ async function testDB() {
     console.log("Result:", posts);
 
     console.log("Calling updatePost on posts[0]");
-    const updatePostResult = await updatePost(posts[0].id, {
+    const updatePostResult = await updatePost(posts[0].authorId, {
       title: "New Title",
       content: "Updated Content"
     });
