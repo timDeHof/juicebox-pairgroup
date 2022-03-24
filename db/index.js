@@ -78,7 +78,6 @@ async function createPost({ authorId, title, content }) {
 
 
 async function updatePost(id, fields ={}) {
-  console.log(id);
   const setString = Object.keys(fields)
   .map((key, index) => `"${key}"=$${index + 1}`)
   .join(", ");
@@ -135,8 +134,6 @@ async function updatePost(id, fields ={}) {
       delete user.rows[0].password;
       const posts=await getPostsByUser(userId);
       user.rows[0].posts=posts.rows[0];
-      console.log(user.rows[0]);
-      //user.fields["posts"]=posts;
       return user.rows;
     }
     catch(error){
