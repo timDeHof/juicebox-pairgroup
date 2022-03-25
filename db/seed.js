@@ -108,6 +108,18 @@ async function createInitialPosts() {
       content:
         "This is my first post. I hope I love writing blogs as much as I love writing them.",
     });
+    await createPost({
+      authorId: sandra.id,
+      title: "How does this work?",
+      content: "Seriously, does this even do anything?",
+    });
+
+    await createPost({
+      authorId: glamgal.id,
+      title: "Living the Glam Life",
+      content: "Do you even? I swear that half of you are posing.",
+    });
+    console.log("Finished creating posts!");
 
     // a couple more
   } catch (error) {
@@ -128,9 +140,9 @@ async function createInitialTags() {
 
     const [postOne, postTwo, postThree] = await getAllPosts();
 
-    await addTagsToPost(postOne.id, [happy, inspo]);
-    await addTagsToPost(postTwo.id, [sad, inspo]);
-    await addTagsToPost(postThree.id, [happy, catman, inspo]);
+    await addTagsToPost(postOne.authorId, [happy, inspo]);
+    await addTagsToPost(postTwo.authorId, [sad, inspo]);
+    await addTagsToPost(postThree.authorId, [happy, catman, inspo]);
 
     console.log("Finished creating tags!");
   } catch (error) {

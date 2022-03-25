@@ -162,19 +162,22 @@ async function createTags(tagList) {
       rows: [tag],
     } = await client.query(
       `
-    INSERT INTO tags(insertValues)
-    VALUES ($1), ($2), ($3)
-    ON CONFLICT (insertValues) DO NOTHING
+    INSERT INTO tags(name)
+    VALUES (${insertValues})
+    ON CONFLICT (name) DO NOTHING
     RETURNING *;
     `,
-      [insertValues]`
-    SELECT * FROM ${selectValues}
-    WHERE "name" = ${tagList.name}
-    IN ($1, $2, $3)
-    `,
-      [selectValues]
+      tagList
     );
-    return tag;
+    const { rows } = await client.query(
+      `
+      SELECT * FROM tags
+      WHERE name
+      IN (${selectValues});
+      `,
+      tagList
+    );
+    return rows;
   } catch (error) {
     throw error;
   }
