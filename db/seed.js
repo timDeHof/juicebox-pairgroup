@@ -106,7 +106,6 @@ async function createTables() {
 async function createInitialPosts() {
   try {
     const [albert, sandra, glamgal] = await getAllUsers();
-    console.log("function getAllUsers finished!");
 
     await createPost({
       authorId: albert.id,
@@ -115,21 +114,21 @@ async function createInitialPosts() {
         "This is my first post. I hope I love writing blogs as much as I love writing them.",
       tags: ["#happy", "#youcandoanything"],
     });
-    console.log("finished creating post for Albert!");
+
     await createPost({
       authorId: sandra.id,
       title: "How does this work?",
       content: "Seriously, does this even do anything?",
       tags: ["#happy", "#worst-day-ever"],
     });
-    console.log("finished creating post for Sandra!");
+
     await createPost({
       authorId: glamgal.id,
       title: "Living the Glam Life",
       content: "Do you even? I swear that half of you are posing.",
       tags: ["#happy", "#youcandoanything", "#canmandoeverything"],
     });
-    console.log("finished creating post for glamgal!");
+
     console.log("Finished creating posts!");
 
     // a couple more
@@ -195,8 +194,7 @@ async function testDB() {
     console.log("Result:", posts);
 
     console.log("Calling updatePost on posts[0]");
-    //console.log("posts[0]:", posts[0]);
-    //console.log("posts[0]'s authorId:", posts[0].authorId);
+
     const updatePostResult = await updatePost(posts[0].id, {
       title: "New Title",
       content: "Updated Content",

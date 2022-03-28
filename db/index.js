@@ -72,7 +72,7 @@ async function createPost({ authorId, title, content, tags = [] }) {
       [authorId, title, content]
     );
     const tagList = await createTags(tags);
-    console.log(`finished creating tags for ${authorId}`);
+
     return await addTagsToPost(post.id, tagList);
   } catch (error) {
     throw error;
@@ -86,10 +86,6 @@ async function updatePost(postId, fields = {}) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-
-  // if (setString.length === 0) {
-  //     return;
-  // }
 
   try {
     if (setString.length > 0) {
@@ -110,7 +106,6 @@ async function updatePost(postId, fields = {}) {
 
     // make any new tags that need to be made
     const tagList = await createTags(tags);
-    console.log("tagList in updatePost:", tagList);
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
 
     // delete any post_tags from the database which aren't in that tagList
@@ -143,7 +138,6 @@ async function getAllPosts() {
     const posts = await Promise.all(
       postIds.map((post) => getPostById(post.id))
     );
-    console.log("Posts in getAllPosts:", posts);
 
     return posts;
   } catch (error) {
@@ -190,7 +184,6 @@ async function getUserById(userId) {
 }
 
 async function createTags(tagList) {
-  console.log("tagList:", tagList);
   if (tagList.length === 0) {
     return;
   }
@@ -246,14 +239,13 @@ async function createPostTag(postId, tagId) {
 }
 
 async function addTagsToPost(postId, tagList) {
-  console.log("Adding Tags to post", postId, tagList);
   try {
     const createPostTagPromises = tagList.map((tag) =>
       createPostTag(postId, tag.id)
     );
 
     await Promise.all(createPostTagPromises);
-    console.log("postId in addTagsToPost:", postId);
+
     return await getPostById(postId);
   } catch (error) {
     throw error;
@@ -261,7 +253,6 @@ async function addTagsToPost(postId, tagList) {
 }
 
 async function getPostById(postId) {
-  console.log("postId in getPostById:", postId);
   try {
     const {
       rows: [post],
