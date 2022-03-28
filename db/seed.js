@@ -14,6 +14,7 @@ const {
   getPostById,
   getPostsByTagName,
   getAllTags,
+  getUserByUsername,
 } = require("./index");
 
 async function createInitialUsers() {
