@@ -81,6 +81,7 @@ async function createPost({ authorId, title, content, tags = [] }) {
 
 async function updatePost(postId, fields = {}) {
   const { tags } = fields;
+  //console.log("tags in updatePost:", tags);
   delete fields.tags;
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -102,13 +103,14 @@ async function updatePost(postId, fields = {}) {
         Object.values(fields)
       );
     }
-    console.log("postId in updatePost:", postId);
+    //console.log("postId in updatePost:", postId);
     if (tags === undefined) {
       return await getPostById(postId);
     }
 
     // make any new tags that need to be made
     const tagList = await createTags(tags);
+    console.log("tagList in updatePost:", tagList);
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
 
     // delete any post_tags from the database which aren't in that tagList
@@ -188,6 +190,7 @@ async function getUserById(userId) {
 }
 
 async function createTags(tagList) {
+  console.log("tagList:", tagList);
   if (tagList.length === 0) {
     return;
   }
@@ -292,7 +295,7 @@ async function getPostById(postId) {
 
     post.tags = tags;
     post.author = author;
-    // the line below is given us an error of column " undefined"
+
     delete post.authorId;
 
     return post;

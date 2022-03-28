@@ -1,5 +1,5 @@
 // updateuserBy id has different id comparing to workshop
-//delete post.authorId in getPostById is commented
+//fixed -- delete post.authorId in getPostById is commented
 //fix line 256 in order to display tag names instead of [object]
 
 const {
@@ -195,8 +195,8 @@ async function testDB() {
     console.log("Result:", posts);
 
     console.log("Calling updatePost on posts[0]");
-    console.log("posts[0]:", posts[0]);
-    console.log("posts[0]'s authorId:", posts[0].authorId);
+    //console.log("posts[0]:", posts[0]);
+    //console.log("posts[0]'s authorId:", posts[0].authorId);
     const updatePostResult = await updatePost(posts[0].id, {
       title: "New Title",
       content: "Updated Content",
@@ -215,7 +215,7 @@ async function testDB() {
 
     console.log("Calling getPostsByTagName with #happy");
     const postsWithHappy = await getPostsByTagName("#happy");
-    console.log("Result:", postsWithHappy);
+    console.log("Result:", JSON.stringify(postsWithHappy, null, 4));
 
     console.log("Finished database tests!");
   } catch (error) {
