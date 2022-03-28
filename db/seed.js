@@ -1,7 +1,3 @@
-// updateuserBy id has different id comparing to workshop
-//fixed -- delete post.authorId in getPostById is commented
-//fix line 256 in order to display tag names instead of [object]
-
 const {
   client,
   getAllUsers,
@@ -17,6 +13,7 @@ const {
   addTagsToPost,
   getPostById,
   getPostsByTagName,
+  getAllTags,
 } = require("./index");
 
 async function createInitialUsers() {

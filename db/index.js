@@ -313,6 +313,36 @@ async function getPostsByTagName(tagName) {
     throw error;
   }
 }
+
+/*
+
+    const { rows: postIds } = await client.query(`
+      SELECT id
+      FROM posts;
+    `);
+
+    const posts = await Promise.all(
+      postIds.map((post) => getPostById(post.id))
+    );
+
+    return posts;
+
+*/
+
+
+async function getAllTags(){
+  try {
+    const {rows}=await client.query(`
+      SELECT * FROM tags;
+    `);
+    console.log("getAllTags function",rows);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 module.exports = {
   client,
   getAllUsers,
@@ -328,4 +358,5 @@ module.exports = {
   addTagsToPost,
   getPostById,
   getPostsByTagName,
+  getAllTags
 };
