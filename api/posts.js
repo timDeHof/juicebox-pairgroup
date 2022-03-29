@@ -34,7 +34,7 @@ postsRouter.post("/", requireUser, async (req, res, next) => {
     //postData.authorId = 1;
     postData.title = title;
     postData.content = content;
-    //console.log("Postdata:", postData);
+    console.log("Postdata from post.js:", postData);
 
     const post = await createPost(postData); //changed, was const post = await createPost({postData});
     //console.log("post from createPost:", post);

@@ -59,10 +59,10 @@ async function updateUser(id, fields = {}) {
 }
 
 async function createPost({ authorId, title, content, tags = [] }) {
-  console.log("authorId:", authorId);
-  console.log("title:", title);
-  console.log("content:", content);
-  console.log("tags:", tags);
+  console.log("authorId in createPost:", authorId);
+  console.log("title in createPost:", title);
+  console.log("content in createPost:", content);
+  console.log("tags in createPost:", tags);
   try {
     const {
       rows: [post],
