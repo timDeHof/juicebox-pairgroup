@@ -244,7 +244,7 @@ async function createPostTag(postId, tagId) {
 }
 
 async function addTagsToPost(postId, tagList) {
-  console.log("post id:", postId);
+  //console.log("post id:", postId);
   try {
     const createPostTagPromises = tagList.map((tag) =>
       createPostTag(postId, tag.id)
