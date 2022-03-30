@@ -10,7 +10,7 @@ postsRouter.use((req, res, next) => {
     next();
 });
 
-postsRouter.get("/", async (req, res) => {
+postsRouter.get("/", async (req, res,next) => {
     try {
         const allPosts = await getAllPosts();
 
