@@ -1,6 +1,6 @@
 const express = require("express");
 const { token } = require("morgan");
-const { getAllPosts, createPost } = require("../db");
+const { getAllPosts, createPost, updatePost, getPostById } = require("../db");
 const { requireUser } = require("./utils");
 const postsRouter = express.Router();
 
@@ -30,12 +30,10 @@ postsRouter.post("/", requireUser, async (req, res, next) => {
   }
 
   try {
-    console.log("req.user", req.user.id);
     postData.authorId = req.user.id; // changed, was postData.authorId = req.user.authorId;
-    //postData.authorId = 1;
+
     postData.title = title;
     postData.content = content;
-    console.log("Postdata from post.js:", postData);
 
     const post = await createPost(postData); //changed, was const post = await createPost({postData});
     //console.log("post from createPost:", post);
@@ -43,6 +41,42 @@ postsRouter.post("/", requireUser, async (req, res, next) => {
     // this will create the post and the tags for us
     // if the post comes back, res.send({ post });
     // otherwise, next an appropriate error object
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
+postsRouter.patch("/:postId", requireUser, async (req, res, next) => {
+  // console.log("req.params:", req.params);
+  const { postId } = req.params;
+  const { title, content, tags } = req.body;
+
+  const updateFields = {};
+
+  if (tags && tags.length > 0) {
+    updateFields.tags = tags.trim().split(/\s+/);
+  }
+
+  if (title) {
+    updateFields.title = title;
+  }
+
+  if (content) {
+    updateFields.content = content;
+  }
+
+  try {
+    const originalPost = await getPostById(postId);
+    console.log(originalPost);
+    if (originalPost.author.id === req.user.id) {
+      const updatedPost = await updatePost(postId, updateFields);
+      res.send({ post: updatedPost });
+    } else {
+      next({
+        name: "UnauthorizedUserError",
+        message: "You cannot update a post that is not yours",
+      });
+    }
   } catch ({ name, message }) {
     next({ name, message });
   }
