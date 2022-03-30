@@ -53,7 +53,6 @@ postsRouter.post("/", requireUser, async (req, res, next) => {
 postsRouter.patch("/:postId", requireUser, async (req, res, next) => {
     const {postId} = req.params;
     const {title, content, tags} = req.body;
-
     const updateFields = {};
 
     if (tags && tags.length > 0) {
