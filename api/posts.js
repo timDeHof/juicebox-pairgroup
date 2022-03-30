@@ -30,6 +30,7 @@ postsRouter.post("/", requireUser, async (req, res, next) => {
   }
 
   try {
+    console.log("req.user", req.user.id);
     postData.authorId = req.user.id; // changed, was postData.authorId = req.user.authorId;
     //postData.authorId = 1;
     postData.title = title;

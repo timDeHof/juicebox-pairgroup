@@ -70,11 +70,11 @@ async function createPost({ authorId, title, content, tags = [] }) {
       `
     INSERT INTO posts("authorId", title, content)
     VALUES ($1, $2, $3)
-    ON CONFLICT (title) DO NOTHING
     RETURNING *;
     `,
       [authorId, title, content]
     );
+
     console.log("post id:", post.id);
     const tagList = await createTags(tags);
 
