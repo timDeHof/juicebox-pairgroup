@@ -104,8 +104,8 @@ usersRouter.delete("/:userId", requireUser, async (req, res, next) => {
               message: "You cannot delete a account which is not yours",
             }
           : {
-              name: "PostNotFoundError",
-              message: "That post does not exist",
+              name: "UserNotFoundError",
+              message: "That user does not exist",
             }
       );
     }
