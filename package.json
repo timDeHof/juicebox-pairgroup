@@ -7,6 +7,7 @@
     "seed": "node ./db/seed.js",
     "start": "node index.js",
     "start:dev": "nodemon index.js"
+    
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,9 @@
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "react": "^18.0.0",
-    "react-router": "^6.3.0"
+    "react-dom": "^18.0.0",
+    "react-router": "^6.3.0",
+    "react-scripts": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
