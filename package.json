@@ -7,7 +7,7 @@
     "seed": "node ./db/seed.js",
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "front": "node .src/index.js"
+    "front": "node ./src/index.js"
     
   },
   "keywords": [],
